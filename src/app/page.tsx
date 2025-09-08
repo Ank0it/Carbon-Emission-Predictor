@@ -23,6 +23,7 @@ export default function Home() {
   const [showResults, setShowResults] = useState(false);
   const [ecoTip, setEcoTip] = useState('');
   const [trips, setTrips] = useState<Trip[]>([]);
+  const [latestFormData, setLatestFormData] = useState<EcoPredictFormValues>({});
 
   const { toast } = useToast();
   const [theme, setTheme] = useState('light');
@@ -60,6 +61,7 @@ export default function Home() {
     setPrediction(null);
     setSuggestions([]);
     setEcoTip(getEcoTip());
+    setLatestFormData(data);
 
     const co2 = calculateCO2(data);
     setPrediction(co2);
@@ -134,6 +136,7 @@ export default function Home() {
                     prediction={prediction}
                     suggestions={suggestions}
                     ecoTip={ecoTip}
+                    formData={latestFormData}
                   />
                 </div>
               )}
