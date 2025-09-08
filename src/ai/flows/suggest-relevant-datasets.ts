@@ -13,7 +13,6 @@ import {z} from 'genkit';
 
 const SuggestRelevantDatasetsInputSchema = z.object({
   fuelConsumption: z.number().optional().describe('Fuel consumption in liters per 100 km.'),
-  energyUsage: z.number().optional().describe('Energy usage in kilowatt-hours.'),
   vehicleType: z.string().optional().describe('Type of vehicle (e.g., car, truck, SUV).'),
   distanceTraveled: z.number().optional().describe('Distance traveled in kilometers.'),
   industrialActivity: z.string().optional().describe('Type of industrial activity.'),
@@ -36,7 +35,6 @@ const prompt = ai.definePrompt({
   prompt: `Based on the following input parameters related to CO₂ emissions, suggest relevant public datasets that the user can refer to for more accurate information. Focus on datasets that provide official ratings, statistics, or benchmarks related to these parameters.
 
 Fuel Consumption: {{{fuelConsumption}}}
-Energy Usage: {{{energyUsage}}}
 Vehicle Type: {{{vehicleType}}}
 Distance Traveled: {{{distanceTraveled}}}
 Industrial Activity: {{{industrialActivity}}}

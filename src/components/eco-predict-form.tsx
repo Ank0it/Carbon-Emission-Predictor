@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Car, Factory, Fuel, Loader2, Route, Zap } from 'lucide-react';
+import { Car, Factory, Fuel, Loader2, Route } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -12,7 +12,6 @@ import { Input } from '@/components/ui/input';
 
 const formSchema = z.object({
   fuelConsumption: z.coerce.number({invalid_type_error: "Must be a number"}).min(0, 'Must be non-negative').optional().or(z.literal('')),
-  energyUsage: z.coerce.number({invalid_type_error: "Must be a number"}).min(0, 'Must be non-negative').optional().or(z.literal('')),
   vehicleType: z.string().optional(),
   distanceTraveled: z.coerce.number({invalid_type_error: "Must be a number"}).min(0, 'Must be non-negative').optional().or(z.literal('')),
   industrialActivity: z.string().optional(),
@@ -39,7 +38,6 @@ export function EcoPredictForm({ onCalculate, loading }: EcoPredictFormProps) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       fuelConsumption: '',
-      energyUsage: '',
       vehicleType: '',
       distanceTraveled: '',
       industrialActivity: '',
@@ -74,22 +72,6 @@ export function EcoPredictForm({ onCalculate, loading }: EcoPredictFormProps) {
               />
               <FormField
                 control={form.control}
-                name="energyUsage"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Energy Usage</FormLabel>
-                    <FormControl>
-                        <InputWithIcon icon={<Zap className="h-4 w-4 text-muted-foreground" />}>
-                            <Input type="number" placeholder="e.g., 100" {...field} className="pl-10" />
-                        </InputWithIcon>
-                    </FormControl>
-                    <FormDescription>In Kilowatt-hours (kWh)</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
                 name="distanceTraveled"
                 render={({ field }) => (
                   <FormItem>
@@ -104,7 +86,8 @@ export function EcoPredictForm({ onCalculate, loading }: EcoPredictFormProps) {
                   </FormItem>
                 )}
               />
-              <FormField
+            </div>
+            <FormField
                 control={form.control}
                 name="vehicleType"
                 render={({ field }) => (
@@ -120,7 +103,6 @@ export function EcoPredictForm({ onCalculate, loading }: EcoPredictFormProps) {
                   </FormItem>
                 )}
               />
-            </div>
             <FormField
               control={form.control}
               name="industrialActivity"

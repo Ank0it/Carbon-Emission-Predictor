@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { Leaf } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Leaf, Palette } from 'lucide-react';
 
 import type { SuggestRelevantDatasetsInput, SuggestRelevantDatasetsOutput } from '@/ai/flows/suggest-relevant-datasets';
 import { suggestRelevantDatasets } from '@/ai/flows/suggest-relevant-datasets';
@@ -10,6 +10,8 @@ import { EcoPredictForm, type EcoPredictFormValues } from '@/components/eco-pred
 import { EcoPredictResults } from '@/components/eco-predict-results';
 import { calculateCO2 } from '@/lib/co2-calculator';
 import { useToast } from '@/hooks/use-toast';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -17,6 +19,16 @@ export default function Home() {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [showResults, setShowResults] = useState(false);
   const { toast } = useToast();
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') || 'default';
+    document.documentElement.className = savedTheme;
+  }, []);
+
+  const handleThemeChange = (theme: string) => {
+    document.documentElement.className = theme;
+    localStorage.setItem('theme', theme);
+  };
 
   const handleCalculate = async (data: EcoPredictFormValues) => {
     if (Object.values(data).every(val => !val)) {
@@ -39,7 +51,6 @@ export default function Home() {
     try {
       const aiInput: SuggestRelevantDatasetsInput = {
         fuelConsumption: data.fuelConsumption,
-        energyUsage: data.energyUsage,
         vehicleType: data.vehicleType,
         distanceTraveled: data.distanceTraveled,
         industrialActivity: data.industrialActivity,
@@ -60,6 +71,23 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-background">
+       <header className="absolute top-4 right-4 z-10">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="icon">
+                  <Palette className="h-4 w-4" />
+                  <span className="sr-only">Change theme</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => handleThemeChange('light')}>Light</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleThemeChange('dark')}>Dark</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleThemeChange('theme-dark-blue')}>Dark Blue</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleThemeChange('theme-red')}>Red</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleThemeChange('theme-yellow')}>Yellow</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+        </header>
       <main className="flex-1 container mx-auto px-4 py-8 md:py-12">
         <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center gap-2 rounded-full bg-card border px-4 py-1 text-sm text-muted-foreground mb-4">
