@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Leaf, Palette } from 'lucide-react';
+import { Leaf, Moon, Sun } from 'lucide-react';
 
 import type { SuggestRelevantDatasetsInput, SuggestRelevantDatasetsOutput } from '@/ai/flows/suggest-relevant-datasets';
 import { suggestRelevantDatasets } from '@/ai/flows/suggest-relevant-datasets';
@@ -11,7 +11,6 @@ import { EcoPredictResults } from '@/components/eco-predict-results';
 import { calculateCO2 } from '@/lib/co2-calculator';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -19,15 +18,19 @@ export default function Home() {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [showResults, setShowResults] = useState(false);
   const { toast } = useToast();
+  const [theme, setTheme] = useState('light');
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.className = savedTheme;
+    setTheme(savedTheme);
   }, []);
 
-  const handleThemeChange = (theme: string) => {
-    document.documentElement.className = theme;
-    localStorage.setItem('theme', theme);
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'theme-dark-blue' : 'light';
+    document.documentElement.className = newTheme;
+    localStorage.setItem('theme', newTheme);
+    setTheme(newTheme);
   };
 
   const handleCalculate = async (data: EcoPredictFormValues) => {
@@ -70,20 +73,13 @@ export default function Home() {
   };
 
   return (
-    <div className="flex min-h-screen w-full flex-col bg-background">
+    <div className="flex min-h-screen w-full flex-col bg-background transition-colors duration-300">
        <header className="absolute top-4 right-4 z-10">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon">
-                  <Palette className="h-4 w-4" />
-                  <span className="sr-only">Change theme</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => handleThemeChange('light')}>Light</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleThemeChange('theme-dark-blue')}>Dark Blue</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Button variant="outline" size="icon" onClick={toggleTheme}>
+              <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <span className="sr-only">Toggle theme</span>
+            </Button>
         </header>
       <main className="flex-1 container mx-auto px-4 py-8 md:py-12">
         <div className="mx-auto max-w-3xl text-center">

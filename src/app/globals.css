@@ -82,6 +82,19 @@ body {
     --input: 215 28% 17%;
     --ring: 217 91% 60%;
   }
+
+  .theme-dark-blue .dark\:rotate-90 {
+      transform: rotate(90deg);
+  }
+  .theme-dark-blue .dark\:scale-0 {
+      transform: scale(0);
+  }
+  .theme-dark-blue .dark\:rotate-0 {
+      transform: rotate(0);
+  }
+  .theme-dark-blue .dark\:scale-100 {
+      transform: scale(1);
+  }
 }
 
 @layer base {
