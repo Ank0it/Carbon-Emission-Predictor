@@ -21,7 +21,7 @@ export default function Home() {
   const { toast } = useToast();
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'default';
+    const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.className = savedTheme;
   }, []);
 
@@ -81,10 +81,7 @@ export default function Home() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onClick={() => handleThemeChange('light')}>Light</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleThemeChange('dark')}>Dark</DropdownMenuItem>
                 <DropdownMenuItem onClick={() => handleThemeChange('theme-dark-blue')}>Dark Blue</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleThemeChange('theme-red')}>Red</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleThemeChange('theme-yellow')}>Yellow</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
         </header>
