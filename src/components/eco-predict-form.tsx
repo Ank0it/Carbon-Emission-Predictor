@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const formSchema = z.object({
   fuelConsumption: z.coerce.number({invalid_type_error: "Must be a number"}).min(0, 'Must be non-negative').optional().or(z.literal('')),
@@ -92,12 +93,22 @@ export function EcoPredictForm({ onCalculate, loading }: EcoPredictFormProps) {
                 name="vehicleType"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Vehicle Type (for AI)</FormLabel>
-                    <FormControl>
-                      <InputWithIcon icon={<Car className="h-4 w-4 text-muted-foreground" />}>
-                        <Input placeholder="e.g., SUV, Sedan" {...field} className="pl-10" />
-                      </InputWithIcon>
-                    </FormControl>
+                    <FormLabel>Vehicle Type</FormLabel>
+                     <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                            <InputWithIcon icon={<Car className="h-4 w-4 text-muted-foreground" />}>
+                                <SelectTrigger className="pl-10">
+                                    <SelectValue placeholder="Select a vehicle type" />
+                                </SelectTrigger>
+                            </InputWithIcon>
+                        </FormControl>
+                        <SelectContent>
+                            <SelectItem value="2-Wheeler">2-Wheeler</SelectItem>
+                            <SelectItem value="3-Wheeler">3-Wheeler</SelectItem>
+                            <SelectItem value="4-Wheeler">4-Wheeler</SelectItem>
+                            <SelectItem value="5-Wheeler">5-Wheeler</SelectItem>
+                        </SelectContent>
+                    </Select>
                     <FormDescription>Helps AI find better datasets.</FormDescription>
                     <FormMessage />
                   </FormItem>
