@@ -15,7 +15,7 @@ const SuggestRelevantDatasetsInputSchema = z.object({
   fuelConsumption: z.number().optional().describe('Fuel consumption in liters per 100 km.'),
   vehicleType: z.string().optional().describe('Type of vehicle (e.g., car, truck, SUV).'),
   distanceTraveled: z.number().optional().describe('Distance traveled in kilometers.'),
-  industrialActivity: z.string().optional().describe('Type of industrial activity.'),
+  roadType: z.string().optional().describe('Type of road traveled on.'),
 });
 export type SuggestRelevantDatasetsInput = z.infer<typeof SuggestRelevantDatasetsInputSchema>;
 
@@ -37,7 +37,7 @@ const prompt = ai.definePrompt({
 Fuel Consumption: {{{fuelConsumption}}}
 Vehicle Type: {{{vehicleType}}}
 Distance Traveled: {{{distanceTraveled}}}
-Industrial Activity: {{{industrialActivity}}}
+Road Type: {{{roadType}}}
 
 Provide a list of dataset names and a brief description of their relevance to the input parameters.`,
 });

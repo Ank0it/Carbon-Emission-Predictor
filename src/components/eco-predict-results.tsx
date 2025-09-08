@@ -71,7 +71,7 @@ export function EcoPredictResults({ loading, prediction, suggestions, ecoTip, fo
       ['Fuel Consumption', formData.fuelConsumption || 'N/A', 'L'],
       ['Vehicle Type', formData.vehicleType || 'N/A', ''],
       ['Distance Traveled', formData.distanceTraveled || 'N/A', 'km'],
-      ['Industrial Activity', formData.industrialActivity || 'N/A', ''],
+      ['Road Type', formData.roadType || 'N/A', ''],
       ['Equivalent Coal Burned', equivalents.coal.toFixed(2), 'kg'],
       ['Equivalent Trees/Year', equivalents.trees.toFixed(2), ''],
       ['Equivalent Passenger Flight', equivalents.flights.toFixed(2), 'km'],

@@ -76,7 +76,7 @@ export default function Home() {
         fuelConsumption: data.fuelConsumption,
         vehicleType: data.vehicleType,
         distanceTraveled: data.distanceTraveled,
-        industrialActivity: data.industrialActivity,
+        roadType: data.roadType,
       };
       const result: SuggestRelevantDatasetsOutput = await suggestRelevantDatasets(aiInput);
       setSuggestions(result.datasets);

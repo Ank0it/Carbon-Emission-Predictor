@@ -40,7 +40,7 @@ export function calculateCO2(data: EcoPredictFormValues): number {
     totalCO2 += distanceTraveled * emissionFactor;
   }
 
-  // `industrialActivity` is not used in this simple calculation
+  // `roadType` is not used in this simple calculation
   // but are passed to the AI for more relevant dataset suggestions.
 
   return totalCO2;

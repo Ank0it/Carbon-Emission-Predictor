@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Car, Factory, Fuel, Loader2, Route } from 'lucide-react';
+import { Car, Fuel, Loader2, Route } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -15,7 +15,7 @@ const formSchema = z.object({
   fuelConsumption: z.coerce.number({invalid_type_error: "Must be a number"}).min(0, 'Must be non-negative').optional().or(z.literal('')),
   vehicleType: z.string().optional(),
   distanceTraveled: z.coerce.number({invalid_type_error: "Must be a number"}).min(0, 'Must be non-negative').optional().or(z.literal('')),
-  industrialActivity: z.string().optional(),
+  roadType: z.string().optional(),
 });
 
 export type EcoPredictFormValues = z.infer<typeof formSchema>;
@@ -41,7 +41,7 @@ export function EcoPredictForm({ onCalculate, loading }: EcoPredictFormProps) {
       fuelConsumption: '',
       vehicleType: '',
       distanceTraveled: '',
-      industrialActivity: '',
+      roadType: '',
     },
   });
 
@@ -116,15 +116,27 @@ export function EcoPredictForm({ onCalculate, loading }: EcoPredictFormProps) {
               />
             <FormField
               control={form.control}
-              name="industrialActivity"
+              name="roadType"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Industrial Activity (for AI)</FormLabel>
-                  <FormControl>
-                    <InputWithIcon icon={<Factory className="h-4 w-4 text-muted-foreground" />}>
-                      <Input placeholder="e.g., Manufacturing" {...field} className="pl-10" />
-                    </InputWithIcon>
-                  </FormControl>
+                  <FormLabel>Road Type</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <InputWithIcon icon={<Route className="h-4 w-4 text-muted-foreground" />}>
+                        <SelectTrigger className="pl-10">
+                          <SelectValue placeholder="Select a road type" />
+                        </SelectTrigger>
+                      </InputWithIcon>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="Highway">Highway</SelectItem>
+                      <SelectItem value="City Roads">City Roads</SelectItem>
+                      <SelectItem value="Mountains">Mountains</SelectItem>
+                      <SelectItem value="Desert">Desert</SelectItem>
+                      <SelectItem value="Rural Roads">Rural Roads</SelectItem>
+                      <SelectItem value="Other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
                   <FormDescription>Helps AI find better datasets.</FormDescription>
                   <FormMessage />
                 </FormItem>
