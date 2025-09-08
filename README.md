@@ -20,6 +20,4 @@ A clean, interactive web app that predicts **carbon dioxide (CO₂) emissions** 
 
 Check it out here: 
 
----
 
-Made with 💙 by [Your Name]
