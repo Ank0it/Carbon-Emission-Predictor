@@ -93,17 +93,14 @@ export function EcoPredictResults({ loading, prediction, suggestions, ecoTip, fo
   const getShareText = () => {
     if (prediction === null) return { whatsapp: '', twitter: '' };
     
-    const baseText = `I just calculated my CO₂ emissions: ${prediction.toFixed(2)} kg CO₂`;
-    const details = formData.distanceTraveled && formData.vehicleType 
-      ? ` for ${formData.distanceTraveled} km on a ${formData.vehicleType}`
-      : '';
-    const link = " Try it yourself!";
-    const twitterLink = " Check your carbon footprint!";
+    const emission = prediction.toFixed(2);
+    const distance = formData.distanceTraveled || 'your trip';
+    const vehicle = formData.vehicleType || 'your vehicle';
+    const appLink = '[APP_LINK]'; // Placeholder for the app's URL
 
-    const whatsappText = `${baseText}${details}. \n🌍 ${link}`;
-    const twitterText = `Checked my CO₂ footprint 🚗🌱 → ${prediction.toFixed(2)} kg CO₂${details}.${twitterLink}`;
+    const text = `Checked my CO₂ footprint 🚗🌱 → ${emission} kg CO₂ for ${distance} km on a ${vehicle}. Check your carbon footprint here: ${appLink}`;
 
-    return { whatsapp: whatsappText, twitter: twitterText };
+    return { whatsapp: text, twitter: text };
   };
   
   const { whatsapp, twitter } = getShareText();
