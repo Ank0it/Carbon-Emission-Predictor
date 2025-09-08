@@ -80,11 +80,15 @@ export default function Home() {
       };
       const result: SuggestRelevantDatasetsOutput = await suggestRelevantDatasets(aiInput);
       setSuggestions(result.datasets);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching AI suggestions:', error);
+      let description = 'Could not fetch AI-powered dataset suggestions.';
+      if (error?.message?.includes('503')) {
+        description = 'The AI model is currently overloaded. Please try again in a few moments.';
+      }
       toast({
         title: 'AI Suggestion Error',
-        description: 'Could not fetch AI-powered dataset suggestions.',
+        description,
         variant: 'destructive',
       });
     } finally {
