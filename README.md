@@ -18,6 +18,6 @@ A clean, interactive web app that predicts **carbon dioxide (CO₂) emissions** 
 
 ## Demo
 
-Check it out here: 
+Check it out here: https://carbon-emission-predictor.netlify.app/
 
 
