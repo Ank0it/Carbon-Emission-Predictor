@@ -98,7 +98,7 @@ export function EcoPredictResults({ loading, prediction, suggestions, ecoTip, fo
     const vehicle = formData.vehicleType || 'your vehicle';
     const appLink = 'https://carbon-emission-predictor.netlify.app/'; // Placeholder for the app's URL
 
-    const text = `Checked my CO₂ footprint 🚗🌱 → ${emission} kg CO₂ for ${distance} km on a ${vehicle}. Check your carbon footprint here: ${https://carbon-emission-predictor.netlify.app/}`;
+    const text = `Checked my CO₂ footprint 🚗🌱 → ${emission} kg CO₂ for ${distance} km on a ${vehicle}. Check your carbon footprint here: ${appLink}`;
 
     return { whatsapp: text, twitter: text };
   };
