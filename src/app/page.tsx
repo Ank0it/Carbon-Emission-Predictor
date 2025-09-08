@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { EcoPredictForm, type EcoPredictFormValues } from '@/components/eco-predict-form';
 import { EcoPredictResults } from '@/components/eco-predict-results';
-import { ComparisonForm } from '@/components/comparison-form';
 import { CarbonTracker } from '@/components/carbon-tracker';
 import { calculateCO2 } from '@/lib/co2-calculator';
 import { useToast } from '@/hooks/use-toast';
@@ -126,9 +125,8 @@ export default function Home() {
 
         <div className="mx-auto mt-10 max-w-2xl">
           <Tabs defaultValue="calculator" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="calculator">Calculator</TabsTrigger>
-              <TabsTrigger value="comparison">Comparison</TabsTrigger>
               <TabsTrigger value="tracker">Tracker</TabsTrigger>
             </TabsList>
             <TabsContent value="calculator">
@@ -144,9 +142,6 @@ export default function Home() {
                   />
                 </div>
               )}
-            </TabsContent>
-            <TabsContent value="comparison">
-              <ComparisonForm />
             </TabsContent>
             <TabsContent value="tracker">
               <CarbonTracker trips={trips} onClear={clearTrips} />
